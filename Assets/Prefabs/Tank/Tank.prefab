@@ -125,9 +125,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa8fb852b391ff545af671adc3a6db92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 2260973946719921652, guid: 84f8cae6dd82be943a70b0c2dd7aa9ab,
+    type: 3}
+  rifle: {fileID: 6702518036121732776}
   stats:
+    healthImage: {fileID: 0}
     maxHealthPoints: 10
     moveSpeed: 10
+    projectileSpeed: 30
 --- !u!1 &6702518036121732791
 GameObject:
   m_ObjectHideFlags: 0

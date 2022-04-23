@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public List<Enemy> enemiesList;
-    public float spawnInterval;
-    public float spawnPositionMargin;
+    [SerializeField] private List<Enemy> enemiesList;
+    [SerializeField] private float spawnInterval;
+    [SerializeField] private float spawnPositionMargin;
 
     private void Start(){
         SpawnEnemy();

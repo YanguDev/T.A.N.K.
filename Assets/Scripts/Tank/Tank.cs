@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tank : MonoBehaviour
 {
-    public Projectile projectile;
-    public Transform rifle;
-    public Stats stats;
+    [SerializeField] private Projectile projectile;
+    [SerializeField] private Transform rifle;
+    public TankStats stats;
 
     private void Awake(){
         Initialize();
@@ -18,5 +19,6 @@ public class Tank : MonoBehaviour
 
     public void ShootProjectile(){
         GameObject newProjectile = Instantiate(projectile.gameObject, rifle.position, Quaternion.identity);
+        newProjectile.GetComponent<Projectile>().stats = stats;
     }
 }

@@ -6,6 +6,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
+    public Tank tank;
     [SerializeField] private int score;
 
     private void Awake(){

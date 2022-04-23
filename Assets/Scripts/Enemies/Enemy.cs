@@ -22,18 +22,25 @@ public class Enemy : MonoBehaviour
     }
 
     private void HealthChanged(int health){
-        if(health <= 0)
+        if(health <= 0){
+            RewardScore();
             Die();
+        }
+    }
+
+    private void RewardScore(){
+        GameManager gm = ServiceLocator.Resolve<GameManager>();
+        gm.AddScore(points);
     }
 
     private void Die(){
-        GameManager gm = ServiceLocator.Resolve<GameManager>();
-        gm.AddScore(points);
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider collider){
         if(collider.CompareTag("Line")){
+            GameManager gm = ServiceLocator.Resolve<GameManager>();
+            gm.tank.stats.ChangeHealth(-1);
             Die();
         }
     }
