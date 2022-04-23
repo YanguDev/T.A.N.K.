@@ -35,6 +35,24 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""0eb338da-47de-4401-94bd-2499c1c58b09"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Special"",
+                    ""type"": ""Button"",
+                    ""id"": ""97f6f7cf-9a66-4886-ad79-5fd31345db5d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -70,6 +88,28 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b9f1a099-0b4c-4819-a4f2-2a2f74072023"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d3823d6-b018-47ba-8d9d-0f234c0bf01a"",
+                    ""path"": ""<Keyboard>/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -79,6 +119,8 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
         // Tank
         m_Tank = asset.FindActionMap("Tank", throwIfNotFound: true);
         m_Tank_Movement = m_Tank.FindAction("Movement", throwIfNotFound: true);
+        m_Tank_Shoot = m_Tank.FindAction("Shoot", throwIfNotFound: true);
+        m_Tank_Special = m_Tank.FindAction("Special", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -139,11 +181,15 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Tank;
     private ITankActions m_TankActionsCallbackInterface;
     private readonly InputAction m_Tank_Movement;
+    private readonly InputAction m_Tank_Shoot;
+    private readonly InputAction m_Tank_Special;
     public struct TankActions
     {
         private @TankControls m_Wrapper;
         public TankActions(@TankControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Tank_Movement;
+        public InputAction @Shoot => m_Wrapper.m_Tank_Shoot;
+        public InputAction @Special => m_Wrapper.m_Tank_Special;
         public InputActionMap Get() { return m_Wrapper.m_Tank; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -156,6 +202,12 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_TankActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_TankActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_TankActionsCallbackInterface.OnMovement;
+                @Shoot.started -= m_Wrapper.m_TankActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_TankActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_TankActionsCallbackInterface.OnShoot;
+                @Special.started -= m_Wrapper.m_TankActionsCallbackInterface.OnSpecial;
+                @Special.performed -= m_Wrapper.m_TankActionsCallbackInterface.OnSpecial;
+                @Special.canceled -= m_Wrapper.m_TankActionsCallbackInterface.OnSpecial;
             }
             m_Wrapper.m_TankActionsCallbackInterface = instance;
             if (instance != null)
@@ -163,6 +215,12 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
+                @Special.started += instance.OnSpecial;
+                @Special.performed += instance.OnSpecial;
+                @Special.canceled += instance.OnSpecial;
             }
         }
     }
@@ -170,5 +228,7 @@ public partial class @TankControls : IInputActionCollection2, IDisposable
     public interface ITankActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
+        void OnSpecial(InputAction.CallbackContext context);
     }
 }

@@ -14,8 +14,10 @@ public class TankController : MonoBehaviour
     }
 
     private void Initialize(){
-        tankControls = new TankControls();
         tank = GetComponent<Tank>();
+        tankControls = new TankControls();
+
+        tankControls.Tank.Shoot.performed += ctx => tank.ShootProjectile();
     }
 
     private void Update(){
