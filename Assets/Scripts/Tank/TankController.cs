@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Tank))]
 public class TankController : MonoBehaviour
 {
-    public float moveSpeed;
     public float maxOffset;
     private TankControls tankControls;
+    private Tank tank;
 
     private void Awake(){
         Initialize();
@@ -14,6 +15,7 @@ public class TankController : MonoBehaviour
 
     private void Initialize(){
         tankControls = new TankControls();
+        tank = GetComponent<Tank>();
     }
 
     private void Update(){
@@ -23,7 +25,7 @@ public class TankController : MonoBehaviour
     }
 
     private void Move(float direction){
-        Vector3 move = new Vector3(direction * moveSpeed * Time.deltaTime, 0, 0);
+        Vector3 move = new Vector3(direction * tank.stats.moveSpeed * Time.deltaTime, 0, 0);
         transform.Translate(move, Space.Self);
         LimitOffset();
     }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6702518035396032370}
   - component: {fileID: 6702518035396032369}
   - component: {fileID: 7231829012884132229}
+  - component: {fileID: 1358240769990408937}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -111,8 +112,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a45e6b92c9670440a621639eb767e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   maxOffset: 11
+--- !u!114 &1358240769990408937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6702518035396032368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa8fb852b391ff545af671adc3a6db92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+    maxHealthPoints: 10
+    moveSpeed: 10
 --- !u!1 &6702518036121732791
 GameObject:
   m_ObjectHideFlags: 0
