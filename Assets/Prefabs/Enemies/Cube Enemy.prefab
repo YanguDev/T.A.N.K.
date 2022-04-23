@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2b64adf71b15941b94e4820b9ce1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: 1
   stats:
     maxHealthPoints: 2
     moveSpeed: 10

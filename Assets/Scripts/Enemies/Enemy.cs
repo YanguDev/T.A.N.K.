@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public int points;
     public Stats stats;
 
     private void Awake(){
@@ -26,6 +27,8 @@ public class Enemy : MonoBehaviour
     }
 
     private void Die(){
+        GameManager gm = ServiceLocator.Resolve<GameManager>();
+        gm.AddScore(points);
         Destroy(gameObject);
     }
 
