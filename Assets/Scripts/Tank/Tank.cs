@@ -8,6 +8,14 @@ public class Tank : MonoBehaviour
     public Transform rifle;
     public Stats stats;
 
+    private void Awake(){
+        Initialize();
+    }
+
+    private void Initialize(){
+        stats.Initialize();
+    }
+
     public void ShootProjectile(){
         GameObject newProjectile = Instantiate(projectile.gameObject, rifle.position, Quaternion.identity);
     }

@@ -19,4 +19,12 @@ public class Projectile : MonoBehaviour
         if(Vector3.Distance(transform.position, initialPosition) >= maxDistance)
             Destroy(gameObject);
     }
+
+    private void OnTriggerEnter(Collider collider){
+        Enemy enemy = collider.GetComponent<Enemy>();
+        if(enemy != null){
+            enemy.stats.ChangeHealth(-1);
+            Destroy(gameObject);
+        }
+    }
 }
