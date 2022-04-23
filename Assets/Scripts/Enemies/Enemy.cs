@@ -2,39 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Unit
 {
-    public int points;
+    public int pointsReward;
+    public int expReward;
     public Stats stats;
-
-    private void Awake(){
-        Initialize();
-    }
-
-    private void Initialize(){
-        stats.Initialize();
-
-        stats.onHealthChanged += HealthChanged;
-    }
+    public override Stats Stats { get { return stats; } }
 
     private void Update(){
         transform.Translate(transform.forward * stats.moveSpeed * Time.deltaTime, Space.World);
     }
 
-    private void HealthChanged(int health){
-        if(health <= 0){
+    protected override void HealthChanged(int health)
+    {
+        base.HealthChanged(health);
+
+        if(health <= 0)
             RewardScore();
-            Die();
-        }
     }
 
     private void RewardScore(){
-        GameManager gm = ServiceLocator.Resolve<GameManager>();
-        gm.AddScore(points);
-    }
-
-    private void Die(){
-        Destroy(gameObject);
+        ServiceLocator.Resolve<GameManager>().AddScore(points);
     }
 
     private void OnTriggerEnter(Collider collider){
