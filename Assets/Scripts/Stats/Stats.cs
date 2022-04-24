@@ -6,9 +6,11 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Stats 
 {
+    
+    public float moveSpeed;
+    public int damage;
     [SerializeField] private Image healthImage;
     public int maxHealthPoints;
-    public float moveSpeed;
 
     [ReadOnly]
     [SerializeField] private int currentHealthPoints;
@@ -16,7 +18,7 @@ public class Stats
     public delegate void OnHealthChanged(int health);
     public event OnHealthChanged onHealthChanged;
 
-    public void Initialize(){
+    public virtual void Initialize(){
         currentHealthPoints = maxHealthPoints;
         if(healthImage != null)
             healthImage.fillAmount = 1;
@@ -24,13 +26,16 @@ public class Stats
 
     public void ChangeHealth(int amount){
         currentHealthPoints += amount;
-
-        if(healthImage != null){
-            if(!healthImage.gameObject.activeSelf)
-                healthImage.gameObject.SetActive(true);
-            healthImage.fillAmount = (float)currentHealthPoints/(float)maxHealthPoints;
-        }
+        UpdateImageFill(healthImage, currentHealthPoints, maxHealthPoints);
 
         if(onHealthChanged != null) onHealthChanged.Invoke(currentHealthPoints);
+    }
+
+    protected void UpdateImageFill(Image image, int currentAmount, int maxAmount){
+        if(image != null){
+            if(!image.gameObject.activeSelf)
+                image.gameObject.SetActive(true);
+            image.fillAmount = (float)currentAmount/(float)maxAmount;
+        }
     }
 }

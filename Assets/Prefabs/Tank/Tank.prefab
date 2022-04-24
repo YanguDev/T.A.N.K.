@@ -132,7 +132,11 @@ MonoBehaviour:
     healthImage: {fileID: 0}
     maxHealthPoints: 10
     moveSpeed: 10
+    damage: 0
+    currentHealthPoints: 0
     projectileSpeed: 30
+    expImage: {fileID: 0}
+    levels: {fileID: 11400000, guid: 19db524333e628e48b99c92eaec96742, type: 2}
 --- !u!1 &6702518036121732791
 GameObject:
   m_ObjectHideFlags: 0

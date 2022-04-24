@@ -1687,6 +1687,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1358240769990408937, guid: b7c3dfd2a44c2a14f8db86a53f6e1dcc,
         type: 3}
+      propertyPath: stats.expImage
+      value: 
+      objectReference: {fileID: 593827470}
+    - target: {fileID: 1358240769990408937, guid: b7c3dfd2a44c2a14f8db86a53f6e1dcc,
+        type: 3}
       propertyPath: stats.healthImage
       value: 
       objectReference: {fileID: 1815037852}

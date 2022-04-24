@@ -16,11 +16,13 @@ public class GameManager : MonoBehaviour
     private void Initialize(){
         ServiceLocator.Register<GameManager>(this);
         score = 0;
-        AddScore(0);
+        RewardTank(0, 0);
     }
 
-    public void AddScore(int amount){
-        score += amount;
+    public void RewardTank(int points, int exp){
+        score += points;
         scoreText.text = score.ToString();
+
+        tank.stats.ChangeExp(exp);
     }
 }

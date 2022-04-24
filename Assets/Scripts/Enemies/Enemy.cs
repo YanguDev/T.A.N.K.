@@ -22,13 +22,12 @@ public class Enemy : Unit
     }
 
     private void RewardScore(){
-        ServiceLocator.Resolve<GameManager>().AddScore(points);
+        ServiceLocator.Resolve<GameManager>().RewardTank(pointsReward, expReward);
     }
 
     private void OnTriggerEnter(Collider collider){
         if(collider.CompareTag("Line")){
-            GameManager gm = ServiceLocator.Resolve<GameManager>();
-            gm.tank.stats.ChangeHealth(-1);
+            ServiceLocator.Resolve<GameManager>().tank.stats.ChangeHealth(-1);
             Die();
         }
     }
