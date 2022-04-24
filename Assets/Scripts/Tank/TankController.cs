@@ -44,11 +44,18 @@ public class TankController : MonoBehaviour
         transform.localPosition = maxPosition;
     }
 
+    public void ToggleControls(bool enabled){
+        if(enabled)
+            tankControls.Enable();
+        else
+            tankControls.Disable();
+    }
+
     private void OnEnable(){
-        tankControls.Enable();
+        ToggleControls(true);
     }
 
     private void OnDisable(){
-        tankControls.Disable();
+        ToggleControls(false);
     }
 }

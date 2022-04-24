@@ -13,7 +13,7 @@ public class Stats
     public int maxHealthPoints;
 
     [ReadOnly]
-    [SerializeField] private int currentHealthPoints;
+    [SerializeField] protected int currentHealthPoints;
 
     public delegate void OnHealthChanged(int health);
     public event OnHealthChanged onHealthChanged;

@@ -8,17 +8,66 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float spawnInterval;
     [SerializeField] private float spawnPositionMargin;
 
+    private List<Enemy> spawnedEnemies = new List<Enemy>();
+
+    private bool canSpawn;
+
     private void Start(){
+        Initialize();
+    }
+
+    private void Initialize(){
+        GameManager gm = ServiceLocator.Resolve<GameManager>();
+        gm.onGameEnd += () => canSpawn = false;
+        gm.onGameStart += StartSpawning;
+
+        StartSpawning();
+    }
+
+    private void StartSpawning(){
+        ClearEnemies();
+
         SpawnEnemy();
     }
 
     private void SpawnEnemy(){
-        int index = Random.Range(0, enemiesList.Count);
-        GameObject newEnemy = Instantiate(enemiesList[index].gameObject, GetRandomSpawnPosition(), transform.rotation);
-        newEnemy.transform.SetParent(transform, true);
-        RandomizeEnemyColor(newEnemy);
+        canSpawn = true;
 
-        Invoke("SpawnEnemy", spawnInterval);
+        int index = Random.Range(0, enemiesList.Count);
+        GameObject newEnemyObject = Instantiate(enemiesList[index].gameObject, GetRandomSpawnPosition(), transform.rotation);
+        newEnemyObject.transform.SetParent(transform, true);
+        RandomizeEnemyColor(newEnemyObject);
+
+        Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
+        newEnemy.onDeath += () => RemoveEnemy(newEnemy);
+        spawnedEnemies.Add(newEnemy);
+        StartCoroutine(SpawnCooldown());
+    }
+
+    private IEnumerator SpawnCooldown(){
+        float t = 0;
+        while(t < spawnInterval){
+            t+= Time.deltaTime;
+            if(!canSpawn)
+                yield break;
+            yield return null;
+        }
+        SpawnEnemy();
+    }
+
+    private void RemoveEnemy(Enemy enemy){
+        spawnedEnemies.Remove(enemy);
+    }
+
+    private void ClearEnemies(){
+        List<Enemy> tempList = new List<Enemy>();
+        foreach(Enemy enemy in spawnedEnemies){
+            tempList.Add(enemy);
+        }
+
+        foreach(Enemy enemy in tempList){
+            enemy.Die();
+        }
     }
 
     private Vector3 GetRandomSpawnPosition(){

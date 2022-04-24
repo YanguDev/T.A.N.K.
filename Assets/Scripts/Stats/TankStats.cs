@@ -21,6 +21,7 @@ public class TankStats : Stats
     {
         base.Initialize();
 
+        exp = 0;
         expImage.fillAmount = 0;
         currentLevelIndex = 0;
         currentLevel = levels.LevelsList[0];
@@ -40,5 +41,7 @@ public class TankStats : Stats
 
         damage = currentLevel.NewDamage;
         specialCooldown = currentLevel.NewCooldown;
+
+        ChangeHealth(maxHealthPoints - currentHealthPoints);
     }
 }

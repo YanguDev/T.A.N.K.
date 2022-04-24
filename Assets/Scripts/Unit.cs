@@ -7,6 +7,9 @@ public abstract class Unit : MonoBehaviour
     private bool isDead;
     public abstract Stats Stats { get; }
 
+    public delegate void OnDeath();
+    public event OnDeath onDeath;
+
     private void Awake(){
         Initialize();
     }
@@ -22,8 +25,8 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
-    protected virtual void Die(){
+    public virtual void Die(){
+        if(onDeath != null) onDeath.Invoke();
         isDead = true;
-        Destroy(gameObject);
     }
 }

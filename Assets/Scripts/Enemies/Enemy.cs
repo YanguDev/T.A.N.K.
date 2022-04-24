@@ -9,16 +9,33 @@ public class Enemy : Unit
     public Stats stats;
     public override Stats Stats { get { return stats; } }
 
+    private bool canMove = true;
+
+    protected override void Initialize(){
+        base.Initialize();
+
+        ServiceLocator.Resolve<GameManager>().onGameEnd += () => canMove = false;
+    }
+
     private void Update(){
-        transform.Translate(transform.forward * stats.moveSpeed * Time.deltaTime, Space.World);
+        if(canMove)
+            transform.Translate(transform.forward * stats.moveSpeed * Time.deltaTime, Space.World);
     }
 
     protected override void HealthChanged(int health)
     {
         base.HealthChanged(health);
 
+        // Reward the tank since the enemy was killed by it
         if(health <= 0)
             RewardScore();
+    }
+
+    public override void Die()
+    {
+        base.Die();
+
+        Destroy(gameObject);
     }
 
     private void RewardScore(){
@@ -26,8 +43,9 @@ public class Enemy : Unit
     }
 
     private void OnTriggerEnter(Collider collider){
+        // When enemy reaches the red line
         if(collider.CompareTag("Line")){
-            ServiceLocator.Resolve<GameManager>().tank.stats.ChangeHealth(-1);
+            ServiceLocator.Resolve<GameManager>().DamageTank(1);
             Die();
         }
     }
