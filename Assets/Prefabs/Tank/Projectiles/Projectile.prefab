@@ -94,7 +94,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415537965363738784}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -111,10 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc00ad267b7cc9459531166d59ff19c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldown: 0
   maxDistance: 100
-  stats:
-    maxHealthPoints: 0
-    moveSpeed: 30
+  moveSpeed: 30
+  damage: 0
 --- !u!1 &7237652965205266120
 GameObject:
   m_ObjectHideFlags: 0

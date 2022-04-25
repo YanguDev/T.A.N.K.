@@ -7,7 +7,7 @@ public class Enemy : Unit
     public int pointsReward;
     public int expReward;
     public Stats stats;
-    public override Stats Stats { get { return stats; } }
+    protected override Stats Stats { get { return stats; } }
 
     private bool canMove = true;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Unit : MonoBehaviour
 {
     private bool isDead;
-    public abstract Stats Stats { get; }
+    protected abstract Stats Stats { get; }
 
     public delegate void OnDeath();
     public event OnDeath onDeath;

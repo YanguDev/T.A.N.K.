@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float maxDistance;
-    public TankStats stats;
-
+    [SerializeField] protected float maxDistance;
+    [ReadOnly] public float moveSpeed;
+    [ReadOnly] public int damage;
     private Vector3 initialPosition;
 
     private void Start(){
@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
     }
 
     private void Update(){
-        transform.Translate(transform.forward * stats.projectileSpeed * Time.deltaTime, Space.World);
+        transform.Translate(transform.forward * moveSpeed * Time.deltaTime, Space.World);
 
         if(Vector3.Distance(transform.position, initialPosition) >= maxDistance)
             Destroy(gameObject);

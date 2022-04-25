@@ -18,6 +18,7 @@ public class TankController : MonoBehaviour
         tankControls = new TankControls();
 
         tankControls.Tank.Shoot.performed += ctx => tank.ShootProjectile();
+        tankControls.Tank.Special.performed += ctx => tank.ShootSpecialProjectile();
     }
 
     private void Update(){
