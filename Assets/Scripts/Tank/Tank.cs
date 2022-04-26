@@ -21,6 +21,7 @@ public class Tank : Unit
     {
         base.Initialize();
 
+        currentSpecialProjectile = null;
         ResetSpecialCooldown();
     }
 
@@ -63,7 +64,8 @@ public class Tank : Unit
     }
 
     private void ResetSpecialCooldown(){
-        StopCoroutine(specialCooldownCoroutine);
+        if(specialCooldownCoroutine != null)
+            StopCoroutine(specialCooldownCoroutine);
         cooldownIndicator.fillAmount = 1;
         canShootSpecial = true;
     }

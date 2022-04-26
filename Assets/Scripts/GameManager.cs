@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void RewardTank(int points, int exp){
+        if(!isPlaying) return;
+
         score += points;
         scoreText.text = score.ToString();
 
