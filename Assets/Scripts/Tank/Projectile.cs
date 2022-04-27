@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider collider){
         Enemy enemy = collider.GetComponent<Enemy>();
         if(enemy != null){
-            enemy.stats.ChangeHealth(-1);
+            enemy.stats.Damage(damage);
             Destroy(gameObject);
         }
     }

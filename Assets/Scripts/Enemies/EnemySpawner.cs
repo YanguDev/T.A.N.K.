@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private List<Enemy> enemiesList;
+    [SerializeField] private List<EnemyChance> enemiesList;
+    [SerializeField] private Transform floor;
     [SerializeField] private float spawnInterval;
     [SerializeField] private float spawnPositionMargin;
 
@@ -17,6 +18,8 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private void Initialize(){
+        ServiceLocator.Register<EnemySpawner>(this);
+
         GameManager gm = ServiceLocator.Resolve<GameManager>();
         gm.onGameEnd += () => canSpawn = false;
         gm.onGameStart += StartSpawning;
@@ -33,14 +36,14 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy(){
         canSpawn = true;
 
-        int index = Random.Range(0, enemiesList.Count);
-        GameObject newEnemyObject = Instantiate(enemiesList[index].gameObject, GetRandomSpawnPosition(), transform.rotation);
-        newEnemyObject.transform.SetParent(transform, true);
-        RandomizeEnemyColor(newEnemyObject);
+        Enemy newEnemy = Instantiate(GetRandomEnemy(), GetRandomSpawnPosition(), transform.rotation);
+        newEnemy.transform.OffsetYByScale(floor);
+        newEnemy.transform.SetParent(transform, true);
+        RandomizeEnemyColor(newEnemy);
 
-        Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
         newEnemy.onDeath += () => RemoveEnemy(newEnemy);
         spawnedEnemies.Add(newEnemy);
+
         StartCoroutine(SpawnCooldown());
     }
 
@@ -69,21 +72,50 @@ public class EnemySpawner : MonoBehaviour
             enemy.Die();
         }
     }
+    public List<Enemy> GetEnemies(){
+        return spawnedEnemies;
+    }
+
+    private Enemy GetRandomEnemy(){
+        Enemy enemy = null;
+        int c = Random.Range(1, 101);
+        int chanceSum = 0;
+
+        for(int i = 0; i < enemiesList.Count; i++){
+            int chance = enemiesList[i].chance;
+            if(c > chanceSum && c <= chanceSum + chance){
+                enemy = enemiesList[i].enemy;
+                break;
+            }else{
+                chanceSum += chance;
+            }
+        }
+
+        return enemy;
+    }
 
     private Vector3 GetRandomSpawnPosition(){
         float maxHorizontalPosition = transform.localScale.x/2 - spawnPositionMargin;
         float x = Random.Range(-maxHorizontalPosition, maxHorizontalPosition);
-        Vector3 position = new Vector3(x, transform.position.y, transform.position.z);
+        Vector3 position = new Vector3(x, 0, transform.position.z);
 
         return position;
     }
 
-    private void RandomizeEnemyColor(GameObject enemy){
+    private void RandomizeEnemyColor(Enemy enemy){
         float r = Random.Range(0f, 1f);
         float g = Random.Range(0f, 1f);
         float b = Random.Range(0f, 1f);
         Color color = new Color(r, g, b);
 
         enemy.GetComponent<MeshRenderer>().material.color = color;
+    }
+}
+
+public static class VectorHelper{
+    public static void OffsetYByScale(this Transform t, Transform floor){
+        Vector3 pos = t.position;
+        pos.y = t.localScale.y/2 + floor.localScale.y/2;
+        t.position = pos;
     }
 }

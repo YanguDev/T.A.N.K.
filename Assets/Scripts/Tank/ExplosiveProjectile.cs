@@ -27,7 +27,7 @@ public class ExplosiveProjectile : Projectile
         foreach(Collider collider in colliders){
             Enemy enemy = collider.GetComponent<Enemy>();
             if(enemy != null){
-                enemy.stats.ChangeHealth(-99);
+                enemy.stats.Damage(99);
             }
         }
     }

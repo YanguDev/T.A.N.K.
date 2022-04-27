@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void DamageTank(int damage){
-        tank.stats.ChangeHealth(-damage);
+        tank.stats.Damage(damage);
     }
 
     public void RewardTank(int points, int exp){

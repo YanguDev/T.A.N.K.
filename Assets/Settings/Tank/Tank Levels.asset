@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelsList:
   - requiredExp: 20
-    newDamage: 1
+    newDamage: 3
     newCooldown: 20
   - requiredExp: 60
-    newDamage: 3
+    newDamage: 5
     newCooldown: 16
   - requiredExp: 150
-    newDamage: 6
+    newDamage: 10
     newCooldown: 10

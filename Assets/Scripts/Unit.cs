@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class Unit : MonoBehaviour
 {
-    private bool isDead;
     protected abstract Stats Stats { get; }
 
     public delegate void OnDeath();
@@ -27,6 +26,5 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void Die(){
         if(onDeath != null) onDeath.Invoke();
-        isDead = true;
     }
 }

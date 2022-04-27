@@ -402,8 +402,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesList:
-  - {fileID: 4069603461194891628, guid: d3685ee1540c8694e873ede73e828bf7, type: 3}
-  spawnInterval: 2
+  - enemy: {fileID: -5052544153729287927, guid: d3685ee1540c8694e873ede73e828bf7,
+      type: 3}
+    chance: 50
+  - enemy: {fileID: -4967730064301843394, guid: dab5c93c82ced48448d6a9a3f53aff3e,
+      type: 3}
+    chance: 15
+  - enemy: {fileID: -6415767455403152108, guid: f7768733f237d6542970ad382aba2425,
+      type: 3}
+    chance: 25
+  - enemy: {fileID: -7830658917198939614, guid: c1c12afef15513740847bf3642c7d1d6,
+      type: 3}
+    chance: 10
+  floor: {fileID: 1450418242}
+  spawnInterval: 1.5
   spawnPositionMargin: 1.5
 --- !u!65 &265487376
 BoxCollider:
@@ -426,7 +438,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265487374}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -0.25, z: 70.57}
+  m_LocalPosition: {x: 0, y: 0.75, z: 70.57}
   m_LocalScale: {x: 25, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2024,7 +2036,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450418238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 12.6}
+  m_LocalPosition: {x: 0, y: 0, z: 12.6}
   m_LocalScale: {x: 25, y: 0.5, z: 120}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2227,7 +2239,7 @@ Canvas:
   m_GameObject: {fileID: 1564219147}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2440,7 +2452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699576519}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.625, z: -33.95}
+  m_LocalPosition: {x: 0, y: 0.375, z: -33.90029}
   m_LocalScale: {x: 25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3396,12 +3408,12 @@ PrefabInstance:
     - target: {fileID: 6702518035396032372, guid: b7c3dfd2a44c2a14f8db86a53f6e1dcc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.29999995
+      value: 0.70000005
       objectReference: {fileID: 0}
     - target: {fileID: 6702518035396032372, guid: b7c3dfd2a44c2a14f8db86a53f6e1dcc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -35.42
+      value: -35.622677
       objectReference: {fileID: 0}
     - target: {fileID: 6702518035396032372, guid: b7c3dfd2a44c2a14f8db86a53f6e1dcc,
         type: 3}

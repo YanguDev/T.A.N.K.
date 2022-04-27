@@ -14,6 +14,7 @@ public class Stats
 
     [ReadOnly]
     [SerializeField] protected int currentHealthPoints;
+    public int CurrentHealthPoints { get { return currentHealthPoints; } }
 
     public delegate void OnHealthChanged(int health);
     public event OnHealthChanged onHealthChanged;
@@ -24,11 +25,33 @@ public class Stats
             healthImage.fillAmount = 1;
     }
 
-    public void ChangeHealth(int amount){
-        currentHealthPoints += amount;
+    public void ChangeSpeed(float normalizedPercent){
+        normalizedPercent = Mathf.Clamp(normalizedPercent, -1, 1);
+        moveSpeed += moveSpeed * normalizedPercent;
+    }
+
+    protected void ChangeHealth(int amount){
+        currentHealthPoints = Mathf.Clamp(currentHealthPoints + amount, 0, maxHealthPoints);
         UpdateImageFill(healthImage, currentHealthPoints, maxHealthPoints);
 
         if(onHealthChanged != null) onHealthChanged.Invoke(currentHealthPoints);
+    }
+
+    public void Damage(int amount){
+        ChangeHealth(-amount);
+    }
+
+    public void Heal(int amount){
+        ChangeHealth(amount);
+    }
+
+    public void HealPercent(float normalizedPercent){
+        normalizedPercent = Mathf.Clamp(normalizedPercent, 0, 1);
+        ChangeHealth((int)(maxHealthPoints * normalizedPercent));
+    }
+
+    public void HealFully(){
+        ChangeHealth(maxHealthPoints - currentHealthPoints);
     }
 
     protected void UpdateImageFill(Image image, int currentAmount, int maxAmount){

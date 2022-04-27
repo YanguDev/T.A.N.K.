@@ -101,6 +101,6 @@ MonoBehaviour:
   maxDistance: 100
   moveSpeed: 30
   damage: 0
-  radius: 10
+  radius: 20
   explosionParticles: {fileID: 1274601968181624036, guid: 215b1046b855e124f8b6679dda5f997d,
     type: 3}

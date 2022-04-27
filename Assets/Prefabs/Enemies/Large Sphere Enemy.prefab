@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8173137503126479715
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641109263926489902, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900220556749990979, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      propertyPath: m_Name
+      value: Large Sphere Enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -6415767455403152108, guid: f7768733f237d6542970ad382aba2425, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: f7768733f237d6542970ad382aba2425, type: 3}
+--- !u!1 &5137635958581399328 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3900220556749990979, guid: f7768733f237d6542970ad382aba2425,
+    type: 3}
+  m_PrefabInstance: {fileID: 8173137503126479715}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-7830658917198939614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5137635958581399328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f11a5fc9ad1364d9c10e44a0d10348, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  pointsReward: 3
+  expReward: 3
+  stats:
+    moveSpeed: 15
+    damage: 2
+    healthImage: {fileID: 9051039183364373461}
+    maxHealthPoints: 20
+    currentHealthPoints: 0
+--- !u!114 &9051039183364373461 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 934234617397237942, guid: f7768733f237d6542970ad382aba2425,
+    type: 3}
+  m_PrefabInstance: {fileID: 8173137503126479715}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

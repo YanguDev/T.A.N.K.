@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
+    public EnemyType type;
     public int pointsReward;
     public int expReward;
     public Stats stats;
@@ -28,7 +29,7 @@ public class Enemy : Unit
 
         // Reward the tank since the enemy was killed by it
         if(health <= 0)
-            RewardScore();
+            Reward();
     }
 
     public override void Die()
@@ -38,15 +39,22 @@ public class Enemy : Unit
         Destroy(gameObject);
     }
 
-    private void RewardScore(){
+    private void Reward(){
         ServiceLocator.Resolve<GameManager>().RewardTank(pointsReward, expReward);
     }
+
+    protected virtual void ReachedLine() { }
 
     private void OnTriggerEnter(Collider collider){
         // When enemy reaches the red line
         if(collider.CompareTag("Line")){
             ServiceLocator.Resolve<GameManager>().DamageTank(1);
             Die();
+            ReachedLine();
         }
     }
+}
+
+public enum EnemyType{
+    Cube, LargeCube, Sphere, LargeSphere
 }
