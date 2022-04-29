@@ -12,7 +12,7 @@ public class LargeSphereEnemy : Enemy
     }
 
     private void SpeedDebuff(){
-        List<Enemy> enemies = ServiceLocator.Resolve<EnemySpawner>().GetEnemies();
+        List<Enemy> enemies = ServiceLocator.Resolve<EnemySpawner>().SpawnedEnemies;
         foreach(Enemy enemy in enemies){
             if(enemy.type == EnemyType.Sphere || enemy.type == EnemyType.LargeSphere){
                 enemy.stats.ChangeSpeed(-0.1f);

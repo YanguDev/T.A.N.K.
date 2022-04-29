@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Unit
+public class Enemy : Unit<Stats>
 {
     public EnemyType type;
     public int pointsReward;
     public int expReward;
     public Stats stats;
-    protected override Stats Stats { get { return stats; } }
+    public override Stats Stats { get { return stats; } }
 
     private bool canMove = true;
 
@@ -20,7 +20,7 @@ public class Enemy : Unit
 
     private void Update(){
         if(canMove)
-            transform.Translate(transform.forward * stats.moveSpeed * Time.deltaTime, Space.World);
+            transform.Translate(transform.forward * stats.MoveSpeed * Time.deltaTime, Space.World);
     }
 
     protected override void HealthChanged(int health)

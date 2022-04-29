@@ -401,22 +401,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2d964a711f08943bea656dae529471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesList:
-  - enemy: {fileID: -5052544153729287927, guid: d3685ee1540c8694e873ede73e828bf7,
-      type: 3}
-    chance: 50
-  - enemy: {fileID: -4967730064301843394, guid: dab5c93c82ced48448d6a9a3f53aff3e,
-      type: 3}
-    chance: 15
-  - enemy: {fileID: -6415767455403152108, guid: f7768733f237d6542970ad382aba2425,
-      type: 3}
-    chance: 25
-  - enemy: {fileID: -7830658917198939614, guid: c1c12afef15513740847bf3642c7d1d6,
-      type: 3}
-    chance: 10
+  enemiesChancePicker:
+    items:
+    - item: {fileID: -5052544153729287927, guid: d3685ee1540c8694e873ede73e828bf7,
+        type: 3}
+      chance: 50
+    - item: {fileID: -4967730064301843394, guid: dab5c93c82ced48448d6a9a3f53aff3e,
+        type: 3}
+      chance: 15
+    - item: {fileID: -6415767455403152108, guid: f7768733f237d6542970ad382aba2425,
+        type: 3}
+      chance: 25
+    - item: {fileID: -7830658917198939614, guid: c1c12afef15513740847bf3642c7d1d6,
+        type: 3}
+      chance: 10
   floor: {fileID: 1450418242}
   spawnInterval: 1.5
   spawnPositionMargin: 1.5
+  canSpawn: 0
 --- !u!65 &265487376
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1350,6 +1352,7 @@ GameObject:
   - component: {fileID: 810337609}
   - component: {fileID: 810337611}
   - component: {fileID: 810337610}
+  - component: {fileID: 810337612}
   m_Layer: 5
   m_Name: Special Ability
   m_TagString: Untagged
@@ -1417,6 +1420,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810337608}
   m_CullTransparentMesh: 1
+--- !u!114 &810337612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810337608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe34d8b54d4caf47b4f6a5e733844d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 3
+  fillImage: {fileID: 1505101068}
+  canUse: 1
 --- !u!1 &1028553666
 GameObject:
   m_ObjectHideFlags: 0
@@ -3385,6 +3403,11 @@ PrefabInstance:
       propertyPath: stats.healthImage
       value: 
       objectReference: {fileID: 1815037852}
+    - target: {fileID: 1358240769990408937, guid: b7c3dfd2a44c2a14f8db86a53f6e1dcc,
+        type: 3}
+      propertyPath: specialProjectile.cooldown
+      value: 
+      objectReference: {fileID: 810337612}
     - target: {fileID: 6702518035396032368, guid: b7c3dfd2a44c2a14f8db86a53f6e1dcc,
         type: 3}
       propertyPath: m_Name

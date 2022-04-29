@@ -7,16 +7,16 @@ public class GameManager : MonoBehaviour
 {
     [Header("UI")]
     
-    public GameObject gameplayScreen;
-    public TextMeshProUGUI scoreText;
+    [SerializeField] private GameObject gameplayScreen;
+    [SerializeField] private TextMeshProUGUI scoreText;
     [Space]
-    public GameObject resultsScreen;
-    public TextMeshProUGUI resultsScoreText;
-    public TextMeshProUGUI resultsRecordText;
+    [SerializeField] private GameObject resultsScreen;
+    [SerializeField] private TextMeshProUGUI resultsScoreText;
+    [SerializeField] private TextMeshProUGUI resultsRecordText;
 
     [Header("Settings")]
-    public Tank tank;
-    public bool isPlaying = true;
+    [SerializeField] private Tank tank;
+    [SerializeField] private bool isPlaying = true;
 
     [Header("Stats")]
     [SerializeField] private int score;
@@ -35,13 +35,14 @@ public class GameManager : MonoBehaviour
         tank.onDeath += EndGame;
         StartGame();
     }
+    
     public void StartGame(){
         isPlaying = true;
         if(onGameStart != null) onGameStart.Invoke();
 
         // Enable controlling the tank
         tank.GetComponent<TankController>().ToggleControls(true);
-        tank.stats.Initialize();
+        tank.Stats.Initialize();
         HideResultsScreen();
 
         score = 0;
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void DamageTank(int damage){
-        tank.stats.Damage(damage);
+        tank.Stats.DealDamage(damage);
     }
 
     public void RewardTank(int points, int exp){
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
         score += points;
         scoreText.text = score.ToString();
 
-        tank.stats.ChangeExp(exp);
+        tank.Stats.ChangeExp(exp);
     }
 
     private void EndGame(){

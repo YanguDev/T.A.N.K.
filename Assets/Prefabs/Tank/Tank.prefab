@@ -125,11 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa8fb852b391ff545af671adc3a6db92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 2260973946719921652, guid: 84f8cae6dd82be943a70b0c2dd7aa9ab,
-    type: 3}
-  specialProjectile: {fileID: 5121913556250316679, guid: 7e7622ffed0ee9f459859cec52f3a6f7,
-    type: 3}
   rifle: {fileID: 6702518036121732776}
+  standardProjectile:
+    ability: {fileID: 11400000, guid: 4596234f4711bb4469fc008b1fa8ca2f, type: 2}
+    cooldown: {fileID: 0}
+  specialProjectile:
+    ability: {fileID: 11400000, guid: 4eb6a26f9a7cd8c40a71dc704f9ddc37, type: 2}
+    cooldown: {fileID: 0}
   stats:
     moveSpeed: 10
     damage: 0
@@ -138,6 +140,7 @@ MonoBehaviour:
     currentHealthPoints: 0
     specialCooldown: 0
     expImage: {fileID: 0}
+    levelText: {fileID: 0}
     levels: {fileID: 11400000, guid: 19db524333e628e48b99c92eaec96742, type: 2}
     currentLevelIndex: 0
     currentLevel:

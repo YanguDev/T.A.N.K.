@@ -9,6 +9,9 @@ public class Projectile : MonoBehaviour
     [ReadOnly] public int damage;
     private Vector3 initialPosition;
 
+    public delegate void OnDisappear();
+    public event OnDisappear onDisappear;
+
     private void Start(){
         initialPosition = transform.position;
     }
@@ -17,13 +20,21 @@ public class Projectile : MonoBehaviour
         transform.Translate(transform.forward * moveSpeed * Time.deltaTime, Space.World);
 
         if(Vector3.Distance(transform.position, initialPosition) >= maxDistance)
-            Destroy(gameObject);
+            Disappear();
     }
 
     private void OnTriggerEnter(Collider collider){
         Enemy enemy = collider.GetComponent<Enemy>();
         if(enemy != null){
-            enemy.stats.Damage(damage);
+            enemy.stats.DealDamage(damage);
+            Disappear();
+        }
+    }
+
+    private void Disappear(){
+        if(onDisappear != null){
+            onDisappear.Invoke();
+        }else{
             Destroy(gameObject);
         }
     }

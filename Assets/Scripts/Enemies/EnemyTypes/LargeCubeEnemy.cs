@@ -12,9 +12,9 @@ public class LargeCubeEnemy : Enemy
     }
 
     private void HealDamaged(){
-        List<Enemy> enemies = ServiceLocator.Resolve<EnemySpawner>().GetEnemies();
+        List<Enemy> enemies = ServiceLocator.Resolve<EnemySpawner>().SpawnedEnemies;
         foreach(Enemy enemy in enemies){
-            if(enemy.stats.CurrentHealthPoints < enemy.stats.maxHealthPoints/2){
+            if(enemy.stats.CurrentHealthPoints < enemy.stats.MaxHealthPoints/2){
                 enemy.stats.HealFully();
             }
         }

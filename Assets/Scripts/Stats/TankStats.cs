@@ -7,26 +7,37 @@ using TMPro;
 [System.Serializable]
 public class TankStats : Stats
 {
-    public float specialCooldown;
-    [SerializeField] private Image expImage;
-    [SerializeField] private TextMeshProUGUI levelText;
-    private int exp;
+    [SerializeField] private float projectileSpeed;
+    [SerializeField] private float specialCooldown;
     [SerializeField] private Levels levels;
-
-    [ReadOnly]
-    [SerializeField] private int currentLevelIndex;
     [SerializeField] private Level currentLevel;
+
+    [SerializeField][ReadOnly] private int currentLevelIndex;
+    [SerializeField][ReadOnly] private int exp;
+
+    [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private Image expImage;
+
+    public float ProjectileSpeed { get { return projectileSpeed; } }
     private Level CurrentLevel {
         set { 
             currentLevel = value;
             currentLevelIndex = levels.LevelsList.IndexOf(currentLevel);
             levelText.text = (currentLevelIndex + 1).ToString();
-            damage = currentLevel.NewDamage;
-            specialCooldown = currentLevel.NewCooldown;
+            Damage = currentLevel.NewDamage;
+            SpecialCooldown = currentLevel.NewCooldown;
+        }
+    }
+    public float SpecialCooldown {
+        get { return specialCooldown; }
+        set {
+            specialCooldown = value;
+            if(onCooldownChanged != null) onCooldownChanged.Invoke(specialCooldown);
         }
     }
 
-    public float projectileSpeed;
+    public delegate void OnCooldownChanged(float cooldown);
+    public event OnCooldownChanged onCooldownChanged;
 
     public override void Initialize()
     {
@@ -49,6 +60,6 @@ public class TankStats : Stats
         exp -= currentLevel.RequiredExp;
         CurrentLevel = levels.LevelsList[++currentLevelIndex];
 
-        ChangeHealth(maxHealthPoints - currentHealthPoints);
+        HealFully();
     }
 }

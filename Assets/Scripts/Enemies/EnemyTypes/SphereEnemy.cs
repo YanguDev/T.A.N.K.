@@ -12,7 +12,7 @@ public class SphereEnemy : Enemy
     }
 
     private void SpeedBuff(){
-        List<Enemy> enemies = ServiceLocator.Resolve<EnemySpawner>().GetEnemies();
+        List<Enemy> enemies = ServiceLocator.Resolve<EnemySpawner>().SpawnedEnemies;
         foreach(Enemy enemy in enemies){
             if(enemy.type == EnemyType.Sphere){
                 enemy.stats.ChangeSpeed(0.1f);

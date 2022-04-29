@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Tank))]
 public class TankController : MonoBehaviour
 {
-    public float maxOffset;
+    [SerializeField] private float maxOffset;
     private TankControls tankControls;
     private Tank tank;
 
@@ -28,7 +28,7 @@ public class TankController : MonoBehaviour
     }
 
     private void Move(float direction){
-        Vector3 move = new Vector3(direction * tank.stats.moveSpeed * Time.deltaTime, 0, 0);
+        Vector3 move = new Vector3(direction * tank.Stats.MoveSpeed * Time.deltaTime, 0, 0);
         transform.Translate(move, Space.Self);
         LimitOffset();
     }

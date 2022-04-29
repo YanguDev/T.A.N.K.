@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Unit : MonoBehaviour
+public abstract class Unit<TStats> : MonoBehaviour
 {
-    protected abstract Stats Stats { get; }
+    public abstract TStats Stats { get; }
 
     public delegate void OnDeath();
     public event OnDeath onDeath;
@@ -14,8 +14,9 @@ public abstract class Unit : MonoBehaviour
     }
 
     protected virtual void Initialize(){
-        Stats.Initialize();
-        Stats.onHealthChanged += HealthChanged;
+        Stats s = Stats as Stats;
+        s.Initialize();
+        s.onHealthChanged += HealthChanged;
     }
 
     protected virtual void HealthChanged(int health){

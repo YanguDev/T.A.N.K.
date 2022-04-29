@@ -3,70 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Tank : Unit
+public class Tank : Unit<TankStats>
 {
-    [SerializeField] private Projectile projectile;
-    [SerializeField] private ExplosiveProjectile specialProjectile;
+    [Header("Objects")]
     [SerializeField] private Transform rifle;
-    [SerializeField] private Image cooldownIndicator;
-    public TankStats stats;
-    protected override Stats Stats { get { return stats; } }
 
-    private ExplosiveProjectile currentSpecialProjectile;
-    private Coroutine specialCooldownCoroutine;
+    [Header("Abilities")]
+    [SerializeField] private AbilityTrigger standardProjectile;
+    [SerializeField] private AbilityTrigger specialProjectile;
 
-    private bool canShootSpecial = true;
+    [Space]
+    [SerializeField] private TankStats stats;
+
+    private Pooling<Projectile> projectilesPool;
+    
+    public Transform Rifle { get { return rifle; } }
+    public override TankStats Stats { get { return stats; } }
+    public Pooling<Projectile> ProjectilesPool { get { return projectilesPool; } }
+
 
     protected override void Initialize()
     {
         base.Initialize();
+        
+        // Connect Stats' cooldown to the special ability
+        specialProjectile.AbilityCooldown.Cooldown = stats.SpecialCooldown;
+        stats.onCooldownChanged += (float cooldown) => specialProjectile.AbilityCooldown.Cooldown = cooldown;
 
-        currentSpecialProjectile = null;
-        ResetSpecialCooldown();
-    }
-
-    public Projectile CreateProjectile(Projectile projectile){
-        Projectile newProjectile = Instantiate(projectile, rifle.position, Quaternion.identity);
-        newProjectile.moveSpeed = stats.projectileSpeed;
-        newProjectile.damage = stats.damage;
-
-        return newProjectile;
+        projectilesPool = new Pooling<Projectile>(50, (standardProjectile.Ability as ProjectileAbility).projectilePrefab);
     }
 
     public void ShootProjectile(){
-        CreateProjectile(projectile);
+        standardProjectile.Use(gameObject);
     }
 
     public void ShootSpecialProjectile(){
-        if(currentSpecialProjectile != null){
-            currentSpecialProjectile.Explode();
-            return;
-        }
-
-        if(!canShootSpecial) return;
-
-        currentSpecialProjectile = (ExplosiveProjectile)CreateProjectile(specialProjectile);
-        
-        specialCooldownCoroutine = StartCoroutine(SpecialCooldown());
-    }
-
-    private IEnumerator SpecialCooldown(){
-        canShootSpecial = false;
-        
-        float t = 0;
-        while(t < stats.specialCooldown){
-            t += Time.deltaTime;
-            cooldownIndicator.fillAmount = t/stats.specialCooldown;
-            yield return null;
-        }
-
-        canShootSpecial = true;
-    }
-
-    private void ResetSpecialCooldown(){
-        if(specialCooldownCoroutine != null)
-            StopCoroutine(specialCooldownCoroutine);
-        cooldownIndicator.fillAmount = 1;
-        canShootSpecial = true;
+        specialProjectile.Use(gameObject);
     }
 }

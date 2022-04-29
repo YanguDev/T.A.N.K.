@@ -12,7 +12,7 @@ public class CubeEnemy : Enemy
     }
 
     private void HealCubes(){
-        List<Enemy> enemies = ServiceLocator.Resolve<EnemySpawner>().GetEnemies();
+        List<Enemy> enemies = ServiceLocator.Resolve<EnemySpawner>().SpawnedEnemies;
 
         foreach(Enemy enemy in enemies){
             if(enemy.type == EnemyType.Cube || enemy.type == EnemyType.LargeCube){

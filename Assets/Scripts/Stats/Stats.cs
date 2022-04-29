@@ -6,18 +6,35 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Stats 
 {
-    
-    public float moveSpeed;
-    public int damage;
+    [SerializeField] protected float moveSpeed;
+    [SerializeField] protected int damage;
+    [SerializeField] protected int maxHealthPoints;
+    [SerializeField][ReadOnly] protected int currentHealthPoints;
     [SerializeField] private Image healthImage;
-    public int maxHealthPoints;
 
-    [ReadOnly]
-    [SerializeField] protected int currentHealthPoints;
-    public int CurrentHealthPoints { get { return currentHealthPoints; } }
+    public float MoveSpeed { get { return moveSpeed; } }
+    public int Damage { 
+        get { return damage; }
+        set {
+            damage = value;
+            if(onDamageChanged != null) onDamageChanged.Invoke(damage);
+        }
+    }
+    public int MaxHealthPoints { get { return maxHealthPoints; } }
+    public int CurrentHealthPoints { 
+        get { return currentHealthPoints; }
+        set {
+            currentHealthPoints = Mathf.Clamp(value, 0, maxHealthPoints);
+            UpdateImageFill(healthImage, currentHealthPoints, maxHealthPoints);
+
+            if(onHealthChanged != null) onHealthChanged.Invoke(currentHealthPoints);
+        }
+    }
 
     public delegate void OnHealthChanged(int health);
     public event OnHealthChanged onHealthChanged;
+    public delegate void OnDamageChanged(int damage);
+    public event OnDamageChanged onDamageChanged;
 
     public virtual void Initialize(){
         currentHealthPoints = maxHealthPoints;
@@ -30,28 +47,21 @@ public class Stats
         moveSpeed += moveSpeed * normalizedPercent;
     }
 
-    protected void ChangeHealth(int amount){
-        currentHealthPoints = Mathf.Clamp(currentHealthPoints + amount, 0, maxHealthPoints);
-        UpdateImageFill(healthImage, currentHealthPoints, maxHealthPoints);
-
-        if(onHealthChanged != null) onHealthChanged.Invoke(currentHealthPoints);
-    }
-
-    public void Damage(int amount){
-        ChangeHealth(-amount);
+    public void DealDamage(int amount){
+        CurrentHealthPoints -= amount;
     }
 
     public void Heal(int amount){
-        ChangeHealth(amount);
+        CurrentHealthPoints += amount;
     }
 
     public void HealPercent(float normalizedPercent){
         normalizedPercent = Mathf.Clamp(normalizedPercent, 0, 1);
-        ChangeHealth((int)(maxHealthPoints * normalizedPercent));
+        CurrentHealthPoints += (int)(maxHealthPoints * normalizedPercent);
     }
 
     public void HealFully(){
-        ChangeHealth(maxHealthPoints - currentHealthPoints);
+        CurrentHealthPoints = maxHealthPoints;
     }
 
     protected void UpdateImageFill(Image image, int currentAmount, int maxAmount){
